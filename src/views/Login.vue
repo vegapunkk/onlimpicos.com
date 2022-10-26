@@ -27,15 +27,39 @@
                           v-model="form.password"
                         ></b-form-input>
 
+                        <small><a href="#">Esqueceu sua senha?</a></small>
+
                     </b-form-group>
+
+                    <b-button
+                      type="button"
+                      variant="primary"
+                      block
+                      @click="login">
+                      <i class="fas fa-sign-in-alt"></i>Login
+                    </b-button>
+
+                    <hr>
+
+                    <b-button
+                      type="button"
+                      variant="link"
+                      block
+                      @click="register">
+                      <i class="fas fa-user-plus"></i>Registrar-se
+                    </b-button>
                 </b-form>
             </div>
         </b-col>
-        <b-col sm="7"></b-col>
+        <b-col sm="7" class="d-flex justify-content-center align-items-center">
+            <img src="src\assets\image 1.jpg" class="img-login" />
+        </b-col>
     </b-row>
 </template>
 
 <script>
+import {required, minLength, email} from "vuelidate/lib//validators";
+
 export default{
     data() {
         return{
@@ -44,6 +68,31 @@ export default{
                 password:""
             }
         }
+    },
+
+    validations:{
+        form: {
+            email: {
+                required,
+                email
+            },
+
+            password: {
+                required,
+                minLength: minLength(6)
+            },
+        }
+    },
+
+    methods: {
+        login(){
+            this.$v.$touch();
+            if(this.$v,$error) {
+                return;
+            }
+        },
+
+        register() {}
     }
 }
 
@@ -65,5 +114,10 @@ export default{
 
 .left-login{
     background-color: #E0D6D0;
+}
+
+.img-login{
+    width: 600px;
+    height: 600px;
 }
 </style>
